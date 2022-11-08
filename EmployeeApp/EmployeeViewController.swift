@@ -34,7 +34,6 @@ class EmployeeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EmployeeCell.self, forCellReuseIdentifier: EmployeeCell.reuseID)
-        tableView.rowHeight = 100
     }
     
     private func setupUI() {
@@ -77,9 +76,10 @@ extension EmployeeViewController: UITableViewDataSource {
 
     //MARK: - UITableViewDelegate
 extension EmployeeViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 //
 //
 //
@@ -93,7 +93,7 @@ extension EmployeeViewController: NetworkManagerDelegate {
     func showData(result: Company?) {
         guard let result = result else {return}
         self.company = result.name
-        self.employee = result.employees
+        self.employee = result.employees.sorted(by: {$0.name < $1.name})
         tableView.reloadData()
     }
     
