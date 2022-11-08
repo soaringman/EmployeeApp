@@ -15,8 +15,11 @@ class EmployeeCell: UITableViewCell {
     
     
     private lazy var nameLabel = UILabel()
-    private lazy var skillsLabel = UILabel()
     private lazy var phoneNumberLabel = UILabel()
+    private lazy var skillsLabel = UILabel()
+    
+    private lazy var vNamePhoneStack = UIStackView(arrangedSubviews: [nameLabel, phoneNumberLabel])
+    private lazy var hContentStack = UIStackView(arrangedSubviews: [vNamePhoneStack, skillsLabel])
     
     //MARK: - Initialization
     
@@ -32,27 +35,23 @@ class EmployeeCell: UITableViewCell {
     }
     
     private func setupUI() {
-        
+        nameLabel.font = .boldSystemFont(ofSize: 17)
+        phoneNumberLabel.font = .italicSystemFont(ofSize: 17)
+        vNamePhoneStack.axis = .vertical
+        vNamePhoneStack.distribution = .fillEqually
+        vNamePhoneStack.spacing = 5
+        hContentStack.axis = .horizontal
+        hContentStack.distribution = .fillEqually
+        skillsLabel.numberOfLines = 0
+        skillsLabel.sizeToFit()
+        self.selectionStyle = .none
     }
     
     private func setupConstraints() {
         
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.top.equalToSuperview().inset(10)
-        }
-        
-        contentView.addSubview(skillsLabel)
-        skillsLabel.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(16)
-            $0.top.equalToSuperview().inset(30)
-        }
-        
-        contentView.addSubview(phoneNumberLabel)
-        phoneNumberLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.top.equalTo(nameLabel.snp.bottom).offset(16)
+        contentView.addSubview(hContentStack)
+        hContentStack.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(16)
         }
     }
     
