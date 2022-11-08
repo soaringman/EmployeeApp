@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkManagerDelegate: AnyObject {
-    func showData(results: Employee)
+    func showData(result: Company?)
     func showError()
 }
 
@@ -22,10 +22,9 @@ final class NetworkManager {
         api.decodeData(url: url) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
-            case .success(let employees):
+            case .success(let companyData):
                 DispatchQueue.main.async {
-                    self.delegate?.showData(results: employees)
-                    print(employees)
+                    self.delegate?.showData(result: companyData?.company)
                 }
             case .failure(_):
                 self.delegate?.showError()
