@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		09D3BE662919B6EC00769512 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D3BE652919B6EC00769512 /* EmployeeModel.swift */; };
 		09D3BE692919B77900769512 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D3BE682919B77900769512 /* NetworkManager.swift */; };
 		09D3BE6B2919B81100769512 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D3BE6A2919B81100769512 /* Api.swift */; };
+		09D3BE6E2919C0C600769512 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 09D3BE6D2919C0C600769512 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D3BE6E2919C0C600769512 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +110,9 @@
 			dependencies = (
 			);
 			name = EmployeeApp;
+			packageProductDependencies = (
+				09D3BE6D2919C0C600769512 /* SnapKit */,
+			);
 			productName = EmployeeApp;
 			productReference = 09D3BE4B2919A8C500769512 /* EmployeeApp.app */;
 			productType = "com.apple.product-type.application";
@@ -128,7 +133,7 @@
 				};
 			};
 			buildConfigurationList = 09D3BE462919A8C500769512 /* Build configuration list for PBXProject "EmployeeApp" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -136,6 +141,9 @@
 				Base,
 			);
 			mainGroup = 09D3BE422919A8C500769512;
+			packageReferences = (
+				09D3BE6C2919C0C600769512 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 09D3BE4C2919A8C500769512 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -378,6 +386,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		09D3BE6C2919C0C600769512 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09D3BE6D2919C0C600769512 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09D3BE6C2919C0C600769512 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 09D3BE432919A8C500769512 /* Project object */;
 }
