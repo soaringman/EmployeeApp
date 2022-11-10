@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 class EmployeeViewController: UIViewController {
     
@@ -14,6 +15,8 @@ class EmployeeViewController: UIViewController {
     private var employee: [EmployeeElement] = []
     private var company = ""
     private let networkManger = NetworkManager()
+    private let monitor = NWPathMonitor()
+    private let queue = DispatchQueue(label: "InternetConnectionMonitor")
     
     //MARK: - ui elements
     private lazy var tableView = UITableView(frame: UIScreen.main.bounds, style: .grouped)
@@ -21,11 +24,10 @@ class EmployeeViewController: UIViewController {
     //MARK: - life cicle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        
+        isCheck()
         setupTable()
         setupUI()
-        
-        getData()
     }
     
     //MARK: - private methods
@@ -48,7 +50,7 @@ class EmployeeViewController: UIViewController {
     }
 }
 
-    //MARK: - UITableViewDataSource
+//MARK: - UITableViewDataSource
 extension EmployeeViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,7 +58,7 @@ extension EmployeeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.company
+        return self.company.count > 0 ? self.company : "No data"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,18 +76,12 @@ extension EmployeeViewController: UITableViewDataSource {
     }
 }
 
-    //MARK: - UITableViewDelegate
+//MARK: - UITableViewDelegate
 extension EmployeeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-//
-//
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
 }
 
 extension EmployeeViewController: NetworkManagerDelegate {
@@ -100,7 +96,25 @@ extension EmployeeViewController: NetworkManagerDelegate {
     func showError() {
         print("Error recive data")
     }
+}
+
+extension EmployeeViewController {
     
-    
+    func isCheck() {
+        monitor.pathUpdateHandler = {pathUpdateHandler in
+            if pathUpdateHandler.status == .satisfied {
+                print("Internet connection is on.")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5 ) { self.getData() }
+                
+                
+            } else {
+                DispatchQueue.main.async {
+                    let alert = AlertManager.showAlert(title: "Проверка соединения", message: "Интернет соединение отсутствует")
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+        monitor.start(queue: queue)
+    }
 }
 
