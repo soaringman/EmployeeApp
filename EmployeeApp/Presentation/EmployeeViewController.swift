@@ -99,7 +99,8 @@ extension EmployeeViewController: NetworkManagerDelegate {
     }
     
     func showError() {
-        print("Error recive data")
+        let alert = AlertManager.showAlert(title: "Проверка данных", message: "Данные не были получены")
+        self.present(alert, animated: true)
     }
 }
     //MARK: - Check and Show Network Status
@@ -110,7 +111,7 @@ extension EmployeeViewController {
         monitor.pathUpdateHandler = {pathUpdateHandler in
             if pathUpdateHandler.status == .satisfied {
                 print("Internet connection is on.")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5 ) { self.getData() }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1 ) { self.getData() }
             } else {
                 DispatchQueue.main.async {
                     let alert = AlertManager.showAlert(title: "Проверка соединения", message: "Интернет соединение отсутствует")
