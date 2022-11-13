@@ -38,6 +38,7 @@ class EmployeeCell: UITableViewCell {
     //MARK: - SetupUI
     
     private func setupUI() {
+        self.separatorInset = UIEdgeInsets.zero
         nameLabel.font = .boldSystemFont(ofSize: 17)
         phoneNumberLabel.font = .italicSystemFont(ofSize: 17)
         vNamePhoneStack.axis = .vertical

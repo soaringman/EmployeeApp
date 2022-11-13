@@ -72,7 +72,6 @@ extension EmployeeViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeCell.reuseID, for: indexPath) as? EmployeeCell {
             let data = employee[indexPath.row]
             cell.configure(name: data.name, phoneNumber: data.phoneNumber, skills: data.skills)
-            cell.separatorInset = UIEdgeInsets.zero
             return cell
         }
         return UITableViewCell()
