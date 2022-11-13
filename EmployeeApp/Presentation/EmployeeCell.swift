@@ -11,6 +11,7 @@ import SnapKit
 class EmployeeCell: UITableViewCell {
     
     //MARK: - static properties
+    
     static let reuseID = "EmployeeCell"
     
     
@@ -34,6 +35,8 @@ class EmployeeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - SetupUI
+    
     private func setupUI() {
         nameLabel.font = .boldSystemFont(ofSize: 17)
         phoneNumberLabel.font = .italicSystemFont(ofSize: 17)
@@ -47,6 +50,8 @@ class EmployeeCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
+    //MARK: - Setup Constraints
+    
     private func setupConstraints() {
         
         contentView.addSubview(hContentStack)
@@ -54,6 +59,8 @@ class EmployeeCell: UITableViewCell {
             $0.edges.equalToSuperview().inset(16)
         }
     }
+    
+    //MARK: - Configure Labels
     
     func configure(name: String,
                    phoneNumber: String,
@@ -63,6 +70,4 @@ class EmployeeCell: UITableViewCell {
         phoneNumberLabel.text = phoneNumber
         skillsLabel.text = skills.joined(separator: ", ")
     }
-    
-    
 }

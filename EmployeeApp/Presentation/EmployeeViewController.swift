@@ -19,9 +19,11 @@ class EmployeeViewController: UIViewController {
     private let queue = DispatchQueue(label: "InternetConnectionMonitor")
     
     //MARK: - ui elements
+    
     private lazy var tableView = UITableView(frame: UIScreen.main.bounds, style: .grouped)
     
     //MARK: - life cicle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +52,8 @@ class EmployeeViewController: UIViewController {
     }
 }
 
-//MARK: - UITableViewDataSource
+    //MARK: - UITableViewDataSource
+
 extension EmployeeViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -69,20 +72,23 @@ extension EmployeeViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeCell.reuseID, for: indexPath) as? EmployeeCell {
             let data = employee[indexPath.row]
             cell.configure(name: data.name, phoneNumber: data.phoneNumber, skills: data.skills)
+            cell.separatorInset = UIEdgeInsets.zero
             return cell
-            
         }
         return UITableViewCell()
     }
 }
 
-//MARK: - UITableViewDelegate
+    //MARK: - UITableViewDelegate
+
 extension EmployeeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 }
+
+    //MARK: - NetworkManagerDelegate
 
 extension EmployeeViewController: NetworkManagerDelegate {
     
@@ -97,6 +103,7 @@ extension EmployeeViewController: NetworkManagerDelegate {
         print("Error recive data")
     }
 }
+    //MARK: - Check and Show Network Status
 
 extension EmployeeViewController {
     
@@ -105,8 +112,6 @@ extension EmployeeViewController {
             if pathUpdateHandler.status == .satisfied {
                 print("Internet connection is on.")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5 ) { self.getData() }
-                
-                
             } else {
                 DispatchQueue.main.async {
                     let alert = AlertManager.showAlert(title: "Проверка соединения", message: "Интернет соединение отсутствует")
